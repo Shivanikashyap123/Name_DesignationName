@@ -1,0 +1,97 @@
+﻿@using task.Models
+@model IEnumerable<task.Models.Student>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>Students List</h1>
+
+<p style="text-align:right;margin-right:20px;">
+    <a class="btn btn-outline-primary" asp-action="AddOrEdit">Create New</a>
+</p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+
+            Find by name: <input type="text" name="SearchString" />|
+
+            <select id="SelectOption" name="selectGrade" asp-items="ViewBag.GradeID">
+                <option value="">-- Select Grade --</option>
+            </select>
+            |
+            <select id="SelectOpt" name="selectSubject" asp-items="ViewBag.SubjectId">
+                <option value="">--Select Subject--</option>
+            </select>
+            <input type="submit" value="Search" class="btn btn-default" />  |
+
+            <a asp-action="Index">Back to Full List</a>|
+            @*@Html.DropDownList("GradeID")|
+        @Html.DropDownList("SubjectID")*@
+
+
+
+        </p>
+        
+</div>
+</form>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GradeNames)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SubjectNames)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Marks)
+                </th>
+                <th></th>
+                <th>Edit Action</th>
+                <th>Details Action</th>
+                <th>Delete Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GradeNames.GName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SubjectNames.SubName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Marks)
+                    </td>
+                    <td>
+                    <td class="text-center">
+                        <a asp-action="AddOrEdit" class="btn btn-outline-primary" asp-route-StudentId="@item.StudentId">Edit</a>
+                    </td>
+                    <td class="text-center">
+                        <a asp-action="Details" class="btn btn-outline-info" asp-route-StudentId="@item.StudentId">Details</a>
+                    </td>
+                    <td class="text-center">
+                        <a asp-action="Delete" class="btn btn-outline-danger" asp-route-StudentId="@item.StudentId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
