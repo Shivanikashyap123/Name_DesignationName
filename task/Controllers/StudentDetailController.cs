@@ -97,8 +97,7 @@ namespace task.Controllers
                 return NotFound();
             }
 
-            var stu = await _context.students
-                           .FirstOrDefaultAsync(m => m.StudentId == studentId);
+            var stu = await _context.students          .FirstOrDefaultAsync(m => m.StudentId == studentId);
             PopulateGradesddl(stu.GradeId);
             PopulateSubjectsddl(stu.SubjectId);
             if (stu == null)
